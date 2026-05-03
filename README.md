@@ -47,7 +47,9 @@ An interactive **data analysis dashboard** built using **Streamlit**, **Pandas**
 ├── app.py                   # Main Streamlit application
 ├── projectSkeleton.py       # Initial/base structure of the project
 ├── startup_cleaned.csv      # Cleaned dataset
+├── requirements.txt         # Project dependencies
 ├── README.md                # Documentation
+
 ```
 
 ---
