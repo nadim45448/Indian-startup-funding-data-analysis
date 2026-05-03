@@ -6,6 +6,12 @@ An interactive **data analysis dashboard** built using **Streamlit**, **Pandas**
 
 ---
 
+## 🌐 Live Demo
+
+👉 [Startup-funding](https://ind-startup-funding-analysis.streamlit.app/)
+
+---
+
 ## 🚀 Features
 
 ### 🔹 Overall Analysis
@@ -49,7 +55,6 @@ An interactive **data analysis dashboard** built using **Streamlit**, **Pandas**
 ├── startup_cleaned.csv      # Cleaned dataset
 ├── requirements.txt         # Project dependencies
 ├── README.md                # Documentation
-
 ```
 
 ---
@@ -83,11 +88,19 @@ python -m venv venv
 venv\Scripts\activate      # Windows
 source venv/bin/activate   # Mac/Linux
 ```
-3. **Run the app**
+
+3. **Install dependencies**
+
+```bash
+pip install -r requirements.txt
+```
+
+4. **Run the app**
 
 ```bash
 streamlit run app.py
 ```
+
 ---
 
 ## 📊 Dataset
