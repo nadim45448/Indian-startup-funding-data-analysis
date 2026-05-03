@@ -99,7 +99,8 @@ def load_investor_details(investor):
 st.sidebar.title("Startup Funding Analysis")
 
 # User selection from sidebar
-option = st.sidebar.selectbox('Select One', ['Overall Analysis', 'Startup', 'Investor'])
+st.session_state.option = st.sidebar.selectbox('Select One', ['Overall Analysis', 'Startup', 'Investor'])
+option = st.session_state.option
 
 # Display content based on user selection
 if option == 'Overall Analysis':
