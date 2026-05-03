@@ -10,6 +10,56 @@ df['date'] = pd.to_datetime(df['date'],errors='coerce')
 df['month'] = df['date'].dt.month
 df['year'] = df['date'].dt.year
 
+# Function to display overall investment analysis dashboard
+def load_overall_analysis():
+    st.title('Overall Analysis')
+
+    # Calculate total invested amount across all startups
+    total = round(df['amount'].sum())
+
+    # Find the highest funding received by a single startup (max deal size)
+    max_funding = df.groupby('startup')['amount'].max().sort_values(ascending=False).head(1).values[0]
+
+    # Compute average funding per startup (total funding divided by number of startups)
+    avg_funding = df.groupby('startup')['amount'].sum().mean()
+
+    # Count unique startups that received funding
+    num_startups = df['startup'].nunique()
+
+    # Create 4 columns layout for key metrics
+    col1, col2, col3, col4 = st.columns(4)
+
+    # Display key metrics using Streamlit cards
+    with col1:
+        st.metric('Total', str(total) + ' Cr')
+    with col2:
+        st.metric('Max', str(max_funding) + ' Cr')
+    with col3:
+        st.metric('Avg', str(round(avg_funding)) + ' Cr')
+    with col4:
+        st.metric('Funded Startups', num_startups)
+
+    st.header('MoM graph')
+
+    # Let user choose between total investment or number of deals (Month-on-Month)
+    selected_option = st.selectbox('Select Type', ['Total', 'Count'])
+
+    # Aggregate data based on user selection
+    if selected_option == 'Total':
+        temp_df = df.groupby(['year', 'month'])['amount'].sum().reset_index()
+    else:
+        temp_df = df.groupby(['year', 'month'])['amount'].count().reset_index()
+
+    # Create a combined month-year label for x-axis
+    temp_df['x_axis'] = temp_df['month'].astype('str') + '-' + temp_df['year'].astype('str')
+
+    # Plot the trend line
+    fig3, ax3 = plt.subplots()
+    ax3.plot(temp_df['x_axis'], temp_df['amount'])
+
+    # Display plot in Streamlit
+    st.pyplot(fig3)
+
 # see investors detail analysis
 def load_investor_details(investor):
     st.title(investor)
@@ -53,7 +103,7 @@ option = st.sidebar.selectbox('Select One', ['Overall Analysis', 'Startup', 'Inv
 
 # Display content based on user selection
 if option == 'Overall Analysis':
-    st.title('Overall Analysis')
+    load_overall_analysis()
 
 elif option == 'Startup':
     # Select startup from dropdown
